@@ -3,47 +3,38 @@ package com.sweetscoops.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "customer_orders")
-public class CustomerOrder {
+@Table(name = "products")
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String customerName;
-
-    @Column(nullable = false)
-    private String phone;
+    private String name;
 
     @Column(nullable = false, length = 2000)
-    private String deliveryAddress;
+    private String description;
 
-    @Column(length = 2000)
-    private String orderNotes;
+    @Column(nullable = false)
+    private String category;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal totalAmount;
+    private BigDecimal price;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private OrderStatus orderStatus;
+    private String imageUrl;
 
-    @Column(unique = true, nullable = false)
-    private String confirmationToken;
+    @Column(nullable = false)
+    private boolean available = true;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
@@ -57,18 +48,16 @@ public class CustomerOrder {
         updatedAt = LocalDateTime.now();
     }
 
-    public CustomerOrder() {
+    public Product() {
     }
 
-    public CustomerOrder(String customerName, String phone, String deliveryAddress, String orderNotes,
-                        BigDecimal totalAmount, OrderStatus orderStatus, String confirmationToken) {
-        this.customerName = customerName;
-        this.phone = phone;
-        this.deliveryAddress = deliveryAddress;
-        this.orderNotes = orderNotes;
-        this.totalAmount = totalAmount;
-        this.orderStatus = orderStatus;
-        this.confirmationToken = confirmationToken;
+    public Product(String name, String description, String category, BigDecimal price, String imageUrl, boolean available) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.price = price;
+        this.imageUrl = imageUrl;
+        this.available = available;
     }
 
     public Long getId() {
@@ -79,60 +68,48 @@ public class CustomerOrder {
         this.id = id;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String getCategory() {
+        return category;
     }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public String getOrderNotes() {
-        return orderNotes;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public void setOrderNotes(String orderNotes) {
-        this.orderNotes = orderNotes;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public String getConfirmationToken() {
-        return confirmationToken;
-    }
-
-    public void setConfirmationToken(String confirmationToken) {
-        this.confirmationToken = confirmationToken;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -149,18 +126,5 @@ public class CustomerOrder {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public List<OrderItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<OrderItem> items) {
-        this.items = items;
-    }
-
-    public void addItem(OrderItem item) {
-        items.add(item);
-        item.setOrder(this);
     }
 }
