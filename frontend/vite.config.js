@@ -1,16 +1,1 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Sweet Scoops Ice Cream Salon" />
-    <title>Sweet Scoops Ice Cream Salon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script type="module" src="/src/main.jsx"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+import { defineConfig } from 'vite';\n\nexport default defineConfig({\n  server: {\n    port: 5173,\n    host: true,\n  },\n  preview: {\n    port: 4173,\n    host: true,\n  },\n});
