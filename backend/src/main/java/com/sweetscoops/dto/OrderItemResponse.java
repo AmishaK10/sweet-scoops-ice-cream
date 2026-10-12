@@ -29,43 +29,18 @@ public class OrderRequest {
     @Valid
     private List<OrderItemRequest> items = new ArrayList<>();
 
-    public String getCustomerName() {
-        return customerName;
-    }
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String customerName) { this.customerName = customerName; }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getPhone() {
-        return phone;
-    }
+    public String getDeliveryAddress() { return deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    public String getOrderNotes() { return orderNotes; }
+    public void setOrderNotes(String orderNotes) { this.orderNotes = orderNotes; }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public String getOrderNotes() {
-        return orderNotes;
-    }
-
-    public void setOrderNotes(String orderNotes) {
-        this.orderNotes = orderNotes;
-    }
-
-    public List<OrderItemRequest> getItems() {
-        return items;
-    }
-
-    public void setItems(List<OrderItemRequest> items) {
-        this.items = items;
-    }
+    public List<OrderItemRequest> getItems() { return items; }
+    public void setItems(List<OrderItemRequest> items) { this.items = items; }
 }

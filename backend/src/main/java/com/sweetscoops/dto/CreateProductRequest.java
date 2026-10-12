@@ -1,12 +1,64 @@
-package com.sweetscoops.repository;
+package com.sweetscoops.entity;
 
-import com.sweetscoops.entity.CustomerOrder;
-import org.springframework.data.jpa.repository.JpaRepository;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
-import java.util.List;
-import java.util.Optional;
+@Entity
+@Table(name = "order_items")
+public class OrderItem {
 
-public interface CustomerOrderRepository extends JpaRepository<CustomerOrder, Long> {
-    Optional<CustomerOrder> findByIdAndConfirmationToken(Long id, String confirmationToken);
-    List<CustomerOrder> findAllByOrderByCreatedAtDesc();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    private CustomerOrder order;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @Column(nullable = false)
+    private String productNameSnapshot;
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal unitPriceSnapshot;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal lineTotal;
+
+    public OrderItem() {}
+
+    public OrderItem(Product product, String productNameSnapshot, BigDecimal unitPriceSnapshot, Integer quantity, BigDecimal lineTotal) {
+        this.product = product;
+        this.productNameSnapshot = productNameSnapshot;
+        this.unitPriceSnapshot = unitPriceSnapshot;
+        this.quantity = quantity;
+        this.lineTotal = lineTotal;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public CustomerOrder getOrder() { return order; }
+    public void setOrder(CustomerOrder order) { this.order = order; }
+
+    public Product getProduct() { return product; }
+    public void setProduct(Product product) { this.product = product; }
+
+    public String getProductNameSnapshot() { return productNameSnapshot; }
+    public void setProductNameSnapshot(String productNameSnapshot) { this.productNameSnapshot = productNameSnapshot; }
+
+    public BigDecimal getUnitPriceSnapshot() { return unitPriceSnapshot; }
+    public void setUnitPriceSnapshot(BigDecimal unitPriceSnapshot) { this.unitPriceSnapshot = unitPriceSnapshot; }
+
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+
+    public BigDecimal getLineTotal() { return lineTotal; }
+    public void setLineTotal(BigDecimal lineTotal) { this.lineTotal = lineTotal; }
 }
